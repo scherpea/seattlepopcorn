@@ -238,8 +238,100 @@
     }
     .shadow-gold {
       box-shadow:
-        0 2px 8px rgba(232, 160, 32, 0.15),
-        0 8px 24px rgba(232, 160, 32, 0.2);
+        0 2px 8px rgba(232, 160, 32, 0.2),
+        0 8px 24px rgba(232, 160, 32, 0.25),
+        0 0 40px rgba(232, 160, 32, 0.1);
+    }
+
+    /* Scroll reveal */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1), transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .fade-up.delay-1 { transition-delay: 0.1s; }
+    .fade-up.delay-2 { transition-delay: 0.2s; }
+    .fade-up.delay-3 { transition-delay: 0.3s; }
+
+    /* Button shimmer effect */
+    .btn-shimmer {
+      position: relative;
+      overflow: hidden;
+    }
+    .btn-shimmer::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 55%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.28), transparent);
+      transform: skewX(-18deg);
+      transition: left 0.55s ease;
+      pointer-events: none;
+    }
+    .btn-shimmer:hover::before {
+      left: 160%;
+    }
+
+    /* Card top accent bar */
+    .card-accent {
+      position: relative;
+      overflow: hidden;
+    }
+    .card-accent::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #E8A020, #F5C04A, #7EC8E3);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+      border-radius: 2px 2px 0 0;
+    }
+    .card-accent:hover::before {
+      transform: scaleX(1);
+    }
+
+    /* Process step card hover glow */
+    .step-card {
+      transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+    }
+    .step-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(232, 160, 32, 0.35) !important;
+      box-shadow: 0 0 0 1px rgba(232, 160, 32, 0.15), 0 8px 32px rgba(0,0,0,0.2);
+    }
+
+    /* Asymmetric hero grid */
+    @media (min-width: 1024px) {
+      .hero-grid {
+        grid-template-columns: 1.2fr 0.8fr;
+      }
+    }
+
+    /* Nav scrolled state */
+    nav.nav-scrolled {
+      box-shadow: 0 1px 24px rgba(30, 42, 58, 0.1);
+    }
+
+    /* Review card hover */
+    .review-card {
+      transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
+    }
+    .review-card:hover {
+      transform: translateY(-4px);
+      box-shadow:
+        0 1px 2px rgba(30, 42, 58, 0.04),
+        0 8px 24px rgba(30, 42, 58, 0.1),
+        0 24px 48px rgba(30, 42, 58, 0.12);
     }
   </style>
 </head>
@@ -289,20 +381,20 @@
     </div>
 
     <div class="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 py-16 sm:py-24 lg:py-32">
-      <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+      <div class="grid hero-grid gap-12 lg:gap-16 items-center">
         <!-- Left: Copy -->
         <div>
           <!-- Trust badge -->
-          <div class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/15 rounded-full px-4 py-1.5 mb-6">
+          <div class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/15 rounded-full px-4 py-1.5 mb-6 fade-up visible">
             <span class="star-gold text-sm">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
             <span class="text-white/80 text-sm font-medium">Seattle's Most Trusted Ceiling Crew</span>
           </div>
 
-          <h1 class="font-display text-white text-4xl sm:text-5xl lg:text-[3.5rem] leading-[1.1] tracking-[-0.03em] mb-6">
+          <h1 class="font-display text-white text-4xl sm:text-5xl lg:text-[3.5rem] leading-[1.1] tracking-[-0.03em] mb-6 fade-up visible delay-1">
             Your Home Deserves a Ceiling <span class="text-brand-gold">Worth Looking Up To</span>
           </h1>
 
-          <p class="text-white/70 text-lg sm:text-xl leading-[1.7] mb-8 max-w-xl">
+          <p class="text-white/70 text-lg sm:text-xl leading-[1.7] mb-8 max-w-xl fade-up visible delay-2">
             That bumpy, yellowed ceiling is quietly dragging your home's value &mdash; and your pride in it &mdash; down every single day. We fix it fast, clean, and stress-free.
           </p>
 
@@ -330,7 +422,7 @@
 
           <!-- CTA buttons -->
           <div class="flex flex-col sm:flex-row gap-4">
-            <a href="#quote" class="cta-pulse inline-flex items-center justify-center gap-2 bg-brand-gold hover:bg-brand-gold-light active:bg-brand-gold-dark text-brand-slate font-bold text-base px-8 py-4 rounded-xl spring-hover transition-colors duration-200">
+            <a href="#quote" class="cta-pulse btn-shimmer inline-flex items-center justify-center gap-2 bg-brand-gold hover:bg-brand-gold-light active:bg-brand-gold-dark text-brand-slate font-bold text-base px-8 py-4 rounded-xl spring-hover transition-colors duration-200">
               See My Ceiling Transformed
               <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
             </a>
@@ -433,7 +525,7 @@
 
       <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
         <!-- Service 1 -->
-        <div class="bg-white rounded-2xl p-7 shadow-elevated spring-hover group">
+        <div class="bg-white rounded-2xl p-7 shadow-elevated spring-hover group card-accent fade-up">
           <div class="w-14 h-14 rounded-xl bg-brand-blue/10 flex items-center justify-center mb-5 group-hover:bg-brand-blue/20 transition-colors duration-300">
             <svg class="w-7 h-7 text-brand-blue-deep" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.393A9.065 9.065 0 0112 15a9.065 9.065 0 00-6.23.693L5 14.5m14.8.8l1.402 1.402c1.232 1.232.65 3.318-1.067 3.611A48.309 48.309 0 0112 21c-2.773 0-5.491-.235-8.135-.687-1.718-.293-2.3-2.379-1.067-3.61L5 14.5"/></svg>
           </div>
@@ -442,7 +534,7 @@
         </div>
 
         <!-- Service 2 -->
-        <div class="bg-white rounded-2xl p-7 shadow-elevated spring-hover group">
+        <div class="bg-white rounded-2xl p-7 shadow-elevated spring-hover group card-accent fade-up delay-1">
           <div class="w-14 h-14 rounded-xl bg-brand-gold/10 flex items-center justify-center mb-5 group-hover:bg-brand-gold/20 transition-colors duration-300">
             <svg class="w-7 h-7 text-brand-gold-dark" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M11.42 15.17l-5.384-3.19A.6.6 0 015.72 11.3l5.384-3.19a.6.6 0 01.912.51v6.38a.6.6 0 01-.596.17zM20.16 12.77l-5.384 3.19a.6.6 0 01-.912-.51V9.07a.6.6 0 01.912-.51l5.384 3.19a.6.6 0 010 1.02z"/><path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
           </div>
@@ -451,7 +543,7 @@
         </div>
 
         <!-- Service 3 -->
-        <div class="bg-white rounded-2xl p-7 shadow-elevated spring-hover group">
+        <div class="bg-white rounded-2xl p-7 shadow-elevated spring-hover group card-accent fade-up delay-2">
           <div class="w-14 h-14 rounded-xl bg-brand-blue/10 flex items-center justify-center mb-5 group-hover:bg-brand-blue/20 transition-colors duration-300">
             <svg class="w-7 h-7 text-brand-blue-deep" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.53 16.122a3 3 0 00-5.78 1.128 2.25 2.25 0 01-2.4 2.245 4.5 4.5 0 008.4-2.245c0-.399-.078-.78-.22-1.128zm0 0a15.998 15.998 0 003.388-1.62m-5.043-.025a15.994 15.994 0 011.622-3.395m3.42 3.42a15.995 15.995 0 004.764-4.648l3.876-5.814a1.151 1.151 0 00-1.597-1.597L14.146 6.32a15.996 15.996 0 00-4.649 4.763m3.42 3.42a6.776 6.776 0 00-3.42-3.42"/></svg>
           </div>
@@ -460,7 +552,7 @@
         </div>
 
         <!-- Service 4 -->
-        <div class="bg-white rounded-2xl p-7 shadow-elevated spring-hover group">
+        <div class="bg-white rounded-2xl p-7 shadow-elevated spring-hover group card-accent fade-up delay-3">
           <div class="w-14 h-14 rounded-xl bg-brand-gold/10 flex items-center justify-center mb-5 group-hover:bg-brand-gold/20 transition-colors duration-300">
             <svg class="w-7 h-7 text-brand-gold-dark" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.098 19.902a3.75 3.75 0 005.304 0l6.401-6.402M6.75 21A3.75 3.75 0 013 17.25V4.125C3 3.504 3.504 3 4.125 3h5.25c.621 0 1.125.504 1.125 1.125v4.072M6.75 21a3.75 3.75 0 003.75-3.75V8.197M6.75 21h13.125c.621 0 1.125-.504 1.125-1.125v-5.25c0-.621-.504-1.125-1.125-1.125h-4.072M10.5 8.197l2.88-2.88c.438-.439 1.15-.439 1.59 0l3.712 3.713c.44.44.44 1.152 0 1.59l-2.88 2.88M6.75 17.25h.008v.008H6.75v-.008z"/></svg>
           </div>
@@ -554,7 +646,7 @@
 
       <div class="grid md:grid-cols-3 gap-8">
         <!-- Step 1 -->
-        <div class="relative bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-8 text-center">
+        <div class="relative bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-8 text-center step-card fade-up">
           <div class="w-14 h-14 rounded-full bg-brand-gold flex items-center justify-center mx-auto mb-5">
             <span class="font-bold text-brand-slate text-xl">1</span>
           </div>
@@ -563,7 +655,7 @@
         </div>
 
         <!-- Step 2 -->
-        <div class="relative bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-8 text-center">
+        <div class="relative bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-8 text-center step-card fade-up delay-1">
           <div class="w-14 h-14 rounded-full bg-brand-gold flex items-center justify-center mx-auto mb-5">
             <span class="font-bold text-brand-slate text-xl">2</span>
           </div>
@@ -572,7 +664,7 @@
         </div>
 
         <!-- Step 3 -->
-        <div class="relative bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-8 text-center">
+        <div class="relative bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-8 text-center step-card fade-up delay-2">
           <div class="w-14 h-14 rounded-full bg-brand-gold flex items-center justify-center mx-auto mb-5">
             <span class="font-bold text-brand-slate text-xl">3</span>
           </div>
@@ -597,7 +689,7 @@
 
       <div class="grid md:grid-cols-3 gap-6">
         <!-- Review 1 -->
-        <div class="bg-gray-50 rounded-2xl p-7 shadow-elevated">
+        <div class="bg-gray-50 rounded-2xl p-7 shadow-elevated review-card fade-up">
           <div class="flex items-center gap-1 mb-4">
             <span class="star-gold">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
           </div>
@@ -614,7 +706,7 @@
         </div>
 
         <!-- Review 2 -->
-        <div class="bg-gray-50 rounded-2xl p-7 shadow-elevated">
+        <div class="bg-gray-50 rounded-2xl p-7 shadow-elevated review-card fade-up delay-1">
           <div class="flex items-center gap-1 mb-4">
             <span class="star-gold">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
           </div>
@@ -631,7 +723,7 @@
         </div>
 
         <!-- Review 3 -->
-        <div class="bg-gray-50 rounded-2xl p-7 shadow-elevated">
+        <div class="bg-gray-50 rounded-2xl p-7 shadow-elevated review-card fade-up delay-2">
           <div class="flex items-center gap-1 mb-4">
             <span class="star-gold">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
           </div>
@@ -809,7 +901,7 @@
                 class="w-full px-4 py-3 rounded-xl border border-gray-200 bg-gray-50 text-brand-slate placeholder:text-brand-slate/30 text-sm focus:border-brand-blue focus:ring-2 focus:ring-brand-blue/20 transition-colors duration-200 resize-none"></textarea>
             </div>
             <button type="submit" id="submitBtn"
-              class="w-full bg-brand-gold hover:bg-brand-gold-light active:bg-brand-gold-dark text-brand-slate font-bold text-base py-4 rounded-xl spring-hover shadow-gold transition-colors duration-200">
+              class="w-full bg-brand-gold hover:bg-brand-gold-light active:bg-brand-gold-dark text-brand-slate font-bold text-base py-4 rounded-xl spring-hover shadow-gold transition-colors duration-200 btn-shimmer">
               Get My Free Quote &rarr;
             </button>
             <p class="text-xs text-brand-slate/40 text-center">No spam. No obligation. We typically respond within a few hours.</p>
@@ -891,7 +983,7 @@
         Join hundreds of Seattle homeowners who stopped living with dated popcorn ceilings and made the upgrade they always wanted.
       </p>
       <div class="flex flex-col sm:flex-row gap-4 justify-center">
-        <a href="#quote" class="cta-pulse inline-flex items-center justify-center gap-2 bg-brand-gold hover:bg-brand-gold-light active:bg-brand-gold-dark text-brand-slate font-bold text-base px-8 py-4 rounded-xl spring-hover transition-colors duration-200">
+        <a href="#quote" class="cta-pulse btn-shimmer inline-flex items-center justify-center gap-2 bg-brand-gold hover:bg-brand-gold-light active:bg-brand-gold-dark text-brand-slate font-bold text-base px-8 py-4 rounded-xl spring-hover transition-colors duration-200">
           Get Your Free Quote
           <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
         </a>
@@ -957,6 +1049,26 @@
       </div>
     </div>
   </footer>
+
+  <!-- Scroll reveal + nav scroll state -->
+  <script>
+    // Scroll reveal
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.fade-up:not(.visible)').forEach(el => observer.observe(el));
+
+    // Nav scroll state
+    const nav = document.querySelector('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('nav-scrolled', window.scrollY > 20);
+    }, { passive: true });
+  </script>
 
   <!-- Mobile sticky CTA -->
   <div class="fixed bottom-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-t border-gray-100 p-3 sm:hidden">
